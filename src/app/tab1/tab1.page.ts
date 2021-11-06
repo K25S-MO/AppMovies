@@ -21,7 +21,6 @@ export class Tab1Page implements OnInit{
        console.log('Respuesta', resp)
       this.peliculasNuevas= resp.results;
     })
-    
 
     this.getPopular();
   }
