@@ -10,19 +10,29 @@ import { MoviesService } from '../service/movies.service';
 })
 export class Tab1Page implements OnInit{
 
-  peliculasNuevas: Pelicula[] = [];
-  slideOpts = {
-    slidesPerView: 1.3,
-    freeMode:true
-  };
+   peliculasNuevas: Pelicula[] = [];
+   populares:Pelicula [] = [];
 
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit(){
     this.moviesService.getFeacture()
-     .subscribe (resp  =>{
+     .subscribe (resp  => {
+       console.log('Respuesta', resp)
       this.peliculasNuevas= resp.results;
     })
-  }
 
+    this.getPopular();
+  }
+   cargarMas(){
+    this.getPopular();
+   }
+
+   getPopular(){
+    this.moviesService.getPopulares()
+    .subscribe(resp => {
+      const peliculasTemp = [...this.populares,...resp.results];
+      this.populares= peliculasTemp;
+    });
+   }
 }
